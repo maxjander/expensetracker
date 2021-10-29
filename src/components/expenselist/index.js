@@ -1,28 +1,31 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 function ExpenseList() {
-	const list = [
-		{
-			title: "Gjorde ett utlägg",
-			logo: "djdjd",
-			createdAt: Date.now(),
-			amount: 1345,
-		},
-		{
-			title: "Gjorde ett utlägg",
-			logo: "djdjd",
-			createdAt: Date.now(),
-			amount: 122,
-		},
-		{
-			title: "Gjorde ett utlägg",
-			logo: "djdjd",
-			createdAt: Date.now(),
-			amount: 3322,
-		},
-	];
+	// const list = [
+	// 	{
+	// 		title: "Gjorde ett utlägg",
+	// 		logo: "djdjd",
+	// 		createdAt: Date.now(),
+	// 		amount: 1345,
+	// 	},
+	// 	{
+	// 		title: "Gjorde ett utlägg",
+	// 		logo: "djdjd",
+	// 		createdAt: Date.now(),
+	// 		amount: 122,
+	// 	},
+	// 	{
+	// 		title: "Gjorde ett utlägg",
+	// 		logo: "djdjd",
+	// 		createdAt: Date.now(),
+	// 		amount: 3322,
+	// 	},
+	// ];
+	const { expenseList: list } = useSelector((state) => state.expenses);
 
+	console.log(list);
 	return (
 		<Wrapper>
 			Utgifter

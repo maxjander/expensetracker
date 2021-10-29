@@ -1,32 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
-
+import { useDispatch } from "react-redux";
 import { categories } from "../../constants/add-expense";
-
+import { addExpense } from "../../redux/actions/expenses";
 function AddForm() {
 	const cat = categories;
-	const [title, settitle] = useState("");
+	let [title, setTitle] = useState("");
 	const [amount, setamount] = useState("");
 	const [category, setcategory] = useState();
 	const [categoryTitle, setcategoryTitle] = useState();
 	const [categoryOpen, setcategoryOpen] = useState(false);
-
-	const handleTitle = (e) => settitle(e.target.value);
+	const dispatch = useDispatch();
+	const handleTitle = (e) => setTitle(e.target.value);
 	const handleAmount = (e) => setamount(+e.target.value);
+	const handleSubmit = (e) => {
+		if (title === "" || amount === "" || !category) {
+			console.log("no Data");
+			return;
+		}
 
+		const data = {
+			title,
+			amount,
+			category,
+			createdAt: new Date(),
+		};
+		dispatch(addExpense(data));
+		setcategory();
+		setcategoryTitle();
+		setamount("");
+		setTitle("");
+	};
 	const handleCategory = (id, title) => {
 		setcategory(id);
 		setcategoryTitle(title);
 		setcategoryOpen(!categoryOpen);
 	};
 
-	useEffect(() => {
-		title && console.log("Titel,", title);
-		amount && console.log("Summa,", amount);
-		category && console.log("Kategori, ", category, "KategoriTitel,", categoryTitle);
-		return () => {};
-	}, [amount, category, title, categoryTitle]);
+	// useEffect(() => {
+	// 	title && console.log("Titel,", title);
+	// 	amount && console.log("Summa,", amount);
+	// 	category && console.log("Kategori, ", category, "KategoriTitel,", categoryTitle);
+	// 	return () => {};
+	// }, [amount, category, title, categoryTitle]);
 	return (
 		<Wrapper>
 			<label>Title</label>
@@ -47,6 +64,9 @@ function AddForm() {
 						{category.title}
 					</div>
 				))}
+			<div onClick={(e) => handleSubmit(e)}>
+				<label>Add</label>
+			</div>
 		</Wrapper>
 	);
 }

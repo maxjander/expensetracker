@@ -1,8 +1,9 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Header from "./components/header";
 import Home from "./pages/home";
 import Footer from "./components/footer";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { bounceInUp } from "react-animations";
 import AddExpense from "./pages/add-expense";
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
 }
 
 export default App;
-
+const bounceAnimation = keyframes`${bounceInUp}`;
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -30,4 +31,5 @@ const Wrapper = styled.div`
 	align-items: center;
 	width: 100vw;
 	background-color: aliceblue;
+	animation: 3s ${bounceAnimation};
 `;
